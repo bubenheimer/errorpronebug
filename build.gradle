@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+configure(project('app')) {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+//            //for errorprone
+//            options.compilerArgs << '-XepDisableWarningsInGeneratedCode'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
