@@ -16,11 +16,10 @@ allprojects {
     }
 }
 
-configure(project('app')) {
+subprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-//            //for errorprone
-//            options.compilerArgs << '-XepDisableWarningsInGeneratedCode'
+            options.compilerArgs << '-XepDisableWarningsInGeneratedCode'
         }
     }
 }
