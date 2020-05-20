@@ -2,13 +2,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
+        classpath 'com.android.tools.build:gradle:4.1.0-alpha09'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:1.1.1'
     }
 }
 
@@ -20,9 +18,11 @@ allprojects {
 }
 
 subprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << '-XepDisableWarningsInGeneratedCode'
+    tasks.withType(JavaCompile) {
+        afterEvaluate {
+            options.errorprone {
+                disableWarningsInGeneratedCode = true
+            }
         }
     }
 }
